@@ -5,8 +5,8 @@ namespace Heyday\ColorPalette\Fields;
 
 use InvalidArgumentException;
 use SilverStripe\Forms\GroupedDropdownField;
-use SilverStripe\ORM\ArrayList;
-use SilverStripe\View\ArrayData;
+use SilverStripe\Model\List\ArrayList;
+use SilverStripe\Model\ArrayData;
 use SilverStripe\View\Requirements;
 
 

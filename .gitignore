@@ -1,1 +1,5 @@
 /vendor/
+behat.yml
+composer.lock
+public/
+.phpunit.result.cache
