@@ -224,7 +224,7 @@ class ColorPaletteField extends OptionsetField
      */
     public function getPickerDisplayValue(): string
     {
-        $value = (string) $this->Value();
+        $value = (string) $this->getValue();
         if ($value === '') {
             return '#ffffff';
         }
@@ -244,7 +244,7 @@ class ColorPaletteField extends OptionsetField
     {
         $options = ArrayList::create();
         $odd = false;
-        $current = (string) $this->Value();
+        $current = (string) $this->getValue();
         $display = $this->getPickerDisplayValue();
 
         foreach ($this->getSourceEmpty() as $value => $title) {
