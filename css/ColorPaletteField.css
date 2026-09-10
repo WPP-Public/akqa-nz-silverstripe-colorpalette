@@ -83,8 +83,13 @@
     margin-top: 8px;
 }
 
-.colorpalette__picker-input,
-.colorpalette--allow-picker .js-color-picker {
+/*
+ * Qualified with `input` on purpose: React copies a field's extraClass onto the
+ * wrapper as well as the input, so an unqualified selector caps the width of the
+ * whole form group and squeezes the field down to the input's size.
+ */
+input.colorpalette__picker-input,
+.colorpalette--allow-picker input.js-color-picker {
     border-color: rgba(0, 0, 0, 0.25);
     display: inline-block;
     width: auto;
@@ -92,9 +97,17 @@
     max-width: 12rem;
 }
 
-.colorpalette__picker-input:focus,
-.colorpalette--allow-picker .js-color-picker:focus {
+input.colorpalette__picker-input:focus,
+.colorpalette--allow-picker input.js-color-picker:focus {
     border-color: rgba(0, 0, 0, 0.25);
+}
+
+/* Inside an element block the field holder is a full-width column: fill it. */
+.element-editor-editform .form__field-holder input.colorpalette__picker-input,
+.element-editor-editform .form__field-holder input.js-color-picker {
+    display: block;
+    width: 100%;
+    max-width: none;
 }
 
 .iris-picker {

@@ -39,12 +39,31 @@
         });
     };
 
+    // React copies a field's extraClass onto the holder as well as the input, so
+    // the hook classes match both. Only the input is ever a real picker.
+    const resolveInput = (node) => {
+        if (!node || node.nodeType !== 1) {
+            return null;
+        }
+        if (node.tagName === "INPUT") {
+            return node;
+        }
+        return node.querySelector("input.js-color-picker, input.colorpalette__picker-input");
+    };
+
+    // Start the search at the parent: the input carries the palette classes too,
+    // so closest() from the input would just return the input itself.
+    const resolveHolder = (input) => {
+        const parent = input.parentElement;
+        if (!parent) {
+            return null;
+        }
+        return parent.closest(".colorpalette") || parent.closest(".form__field-holder") || parent;
+    };
+
     const ensureSwatches = (input) => {
         // PHP templates already render swatches; React TextField needs them injected.
-        const holder =
-            input.closest(".colorpalette") ||
-            input.closest(".form__field-holder") ||
-            input.parentElement;
+        const holder = resolveHolder(input);
         if (!holder || holder.querySelector(".colorpalette__swatch, .colorpalette ul li label")) {
             return holder;
         }
@@ -68,13 +87,15 @@
             li.appendChild(button);
             ul.appendChild(li);
         });
-        holder.insertBefore(ul, input);
+        // Insert against the input's own parent; the holder is often an ancestor.
+        input.parentElement.insertBefore(ul, input);
         holder.classList.add("colorpalette", "colorpalette--allow-picker");
         return holder;
     };
 
-    const initIrisPicker = (input) => {
-        if (!$.fn.iris || input.dataset.irisReady === "1") {
+    const initIrisPicker = (node) => {
+        const input = resolveInput(node);
+        if (!input || !$.fn.iris || input.dataset.irisReady === "1") {
             return;
         }
         input.dataset.irisReady = "1";

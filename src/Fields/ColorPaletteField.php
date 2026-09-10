@@ -153,11 +153,14 @@ class ColorPaletteField extends OptionsetField
             $data['data']['allowPicker'] = true;
             $data['data']['palette'] = $this->getPickerColors();
             $data['attributes']['data-palette'] = json_encode($this->getPickerColors());
-            $data['attributes']['style'] = sprintf(
-                'background-color: %s; color: %s;',
-                $pickerValue,
-                $this->getContrastingTextColor($pickerValue)
-            );
+            // React spreads these attributes straight onto the <input>, and its
+            // style prop must be an object of camelCased properties. Passing the
+            // usual CSS string here throws React error #62 and takes the whole
+            // inline-editing form down with it.
+            $data['attributes']['style'] = [
+                'backgroundColor' => $pickerValue,
+                'color' => $this->getContrastingTextColor($pickerValue),
+            ];
             // TextField schema expects a string value, not a singleselect default.
             unset($data['data']['hasEmptyDefault'], $data['data']['emptyString']);
         } else {
