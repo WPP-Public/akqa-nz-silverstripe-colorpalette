@@ -126,6 +126,11 @@
     padding: 0;
 }
 
+.colorpalette .form-check-label input,
+.colorpalette .form-check-input {
+    display: none;
+}
+
 .colorpalette .form-check-label:has(input:checked) {
     outline: 5px solid #ddd;
     position: relative;
