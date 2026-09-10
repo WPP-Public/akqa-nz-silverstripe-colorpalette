@@ -10,9 +10,15 @@ Works in standard CMS forms and with [Elemental](https://github.com/silverstripe
 composer require heyday/silverstripe-colorpalette
 ```
 
-## Example
+## Examples
 
-![Color Palette Example](resources/example.png?raw=true)
+### Palette only
+
+![Colour palette field](resources/example-palette.png?raw=true)
+
+### Palette with free-form picker
+
+![Colour palette field with Iris picker](resources/example-picker.png?raw=true)
 
 ## Features
 
