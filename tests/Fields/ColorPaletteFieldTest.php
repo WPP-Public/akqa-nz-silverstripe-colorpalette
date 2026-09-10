@@ -42,5 +42,44 @@ class ColorPaletteFieldTest extends SapphireTest
             $this->convertToSingleLine($field->forTemplate())
         );
     }
+
+    public function testAllowPickerRendersTextInput(): void
+    {
+        $field = ColorPaletteField::create(
+            'BackgroundColour',
+            'Background Colour',
+            [
+                '#FFFFFF' => '#FFFFFF',
+                '#000000' => '#000000',
+            ],
+            '#1976D2'
+        )->setAllowPicker(true);
+
+        $html = $this->convertToSingleLine($field->forTemplate());
+
+        $this->assertStringContainsString('colorpalette--allow-picker', $html);
+        $this->assertStringContainsString('js-color-picker', $html);
+        $this->assertStringContainsString('name="BackgroundColour"', $html);
+        $this->assertStringContainsString('value="#1976D2"', $html);
+        $this->assertStringContainsString('colorpalette__swatch', $html);
+        $this->assertTrue($field->getAllowPicker());
+        $this->assertSame('TextField', $field->getSchemaComponent());
+    }
+
+    public function testAllowPickerAcceptsCustomValue(): void
+    {
+        $field = ColorPaletteField::create(
+            'BackgroundColour',
+            'Background Colour',
+            [
+                '#FFFFFF' => '#FFFFFF',
+                '#000000' => '#000000',
+            ],
+            '#1976D2'
+        )->setAllowPicker(true);
+
+        $this->assertContains('#1976D2', $field->getValidValues());
+        $this->assertTrue($field->validate()->isValid());
+    }
 }
 

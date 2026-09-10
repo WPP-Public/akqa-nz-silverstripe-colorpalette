@@ -1,8 +1,9 @@
 ---
-name: silverstripe-colorpalette
+Name: silverstripe-colorpalette
 ---
 SilverStripe\Admin\LeftAndMain:
   extra_requirements_css:
     - "heyday/silverstripe-colorpalette:css/ColorPaletteField.css"
   extra_requirements_javascript:
+    - "heyday/silverstripe-colorpalette:js/lib/color-picker.min.js"
     - "heyday/silverstripe-colorpalette:js/ColorPaletteField.js"
