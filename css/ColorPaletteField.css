@@ -1,6 +1,11 @@
-.colorpalette ul {
+.colorpalette ul,
+.colorpalette__swatches {
     overflow: hidden;
     padding-left: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
 }
 
 .colorpalette li {
@@ -8,42 +13,56 @@
     list-style: none;
 }
 
-.colorpalette input {
+.colorpalette input.radio {
     display: none;
 }
 
-.colorpalette li label {
+.colorpalette li label,
+.colorpalette__swatch {
     cursor: pointer;
-    width: 50px;
-    height: 50px;
+    width: 32px;
+    height: 32px;
     display: block;
-    margin: 5px 15px 5px 5px;
+    margin: 4px;
     outline: 1px solid #fff;
     border: 1px solid #999;
+    padding: 0;
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    appearance: none;
+    -webkit-appearance: none;
 }
 
-.colorpalette.readonly li label {
+.colorpalette.readonly li label,
+.colorpalette__swatch:disabled {
     cursor: default;
 }
 
-.colorpalette li input:checked + label {
+.colorpalette li input:checked + label,
+.colorpalette li.selected .colorpalette__swatch,
+.colorpalette__swatch.is-selected {
     outline: 5px solid #ddd;
     position: relative;
 }
 
-.colorpalette li input:checked + label:after {
+.colorpalette li input:checked + label:after,
+.colorpalette li.selected .colorpalette__swatch:after,
+.colorpalette__swatch.is-selected:after {
     position: absolute;
-    width:100%;
-    height:100%;
-    line-height: 50px;
+    width: 100%;
+    height: 100%;
+    line-height: 32px;
     text-align: center;
-    content:"\2714";
-    color:#000;
+    content: "\2714";
+    color: #000;
     text-shadow:
-		-1px -1px 0 #fff,
-		1px -1px 0 #fff,
-		-1px 1px 0 #fff,
-		1px 1px 0 #fff;
+        -1px -1px 0 #fff,
+        1px -1px 0 #fff,
+        -1px 1px 0 #fff,
+        1px 1px 0 #fff;
+    left: 0;
+    top: 0;
 }
 
 .groupedcolorpalette h4 {
@@ -53,6 +72,34 @@
     text-shadow: 1px 1px 0 #fff;
     font-size: 12px;
     margin: 0;
+}
+
+/* Free-form Iris picker */
+.colorpalette--allow-picker {
+    position: relative;
+}
+
+.colorpalette__picker {
+    margin-top: 8px;
+}
+
+.colorpalette__picker-input,
+.colorpalette--allow-picker .js-color-picker {
+    border-color: rgba(0, 0, 0, 0.25);
+    display: inline-block;
+    width: auto;
+    min-width: 7.5rem;
+    max-width: 12rem;
+}
+
+.colorpalette__picker-input:focus,
+.colorpalette--allow-picker .js-color-picker:focus {
+    border-color: rgba(0, 0, 0, 0.25);
+}
+
+.iris-picker {
+    position: absolute !important;
+    z-index: 99999;
 }
 
 /* react component styles */
@@ -65,16 +112,23 @@
 
 .colorpalette .form-check-label {
     cursor: pointer;
-    width: 50px;
-    height: 50px;
+    width: 32px;
+    height: 32px;
     display: block;
-    margin: 5px;
+    margin: 4px;
     outline: 1px solid #fff;
     border: 1px solid #999;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
 .colorpalette .form-check {
     padding: 0;
+}
+
+.colorpalette .form-check-label input,
+.colorpalette .form-check-input {
+    display: none;
 }
 
 .colorpalette .form-check-label:has(input:checked) {
@@ -84,15 +138,15 @@
 
 .colorpalette .form-check-label:has(input:checked)::after {
     position: absolute;
-    width:100%;
-    height:100%;
-    line-height: 50px;
+    width: 100%;
+    height: 100%;
+    line-height: 32px;
     text-align: center;
-    content:"\2714";
-    color:#000;
+    content: "\2714";
+    color: #000;
     text-shadow:
-		-1px -1px 0 #fff,
-		1px -1px 0 #fff,
-		-1px 1px 0 #fff,
-		1px 1px 0 #fff;
+        -1px -1px 0 #fff,
+        1px -1px 0 #fff,
+        -1px 1px 0 #fff,
+        1px 1px 0 #fff;
 }
