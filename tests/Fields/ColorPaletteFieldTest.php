@@ -289,6 +289,32 @@ class ColorPaletteFieldTest extends SapphireTest
         $this->assertArrayHasKey('data-palette', $schema['attributes']);
     }
 
+    /**
+     * Inline element editing renders this field through React, which spreads the
+     * schema attributes onto the input. React's style prop only accepts an object
+     * of camelCased properties; a CSS string throws React error #62 and blanks the
+     * whole form, so the picker colours have to stay structured here.
+     */
+    public function testSchemaStyleAttributeIsAReactStyleObject(): void
+    {
+        $field = ColorPaletteField::create(
+            'BackgroundColour',
+            'Background Colour',
+            $this->hexSource(),
+            '#1976D2'
+        )->setAllowPicker(true);
+
+        $style = $field->getSchemaData()['attributes']['style'];
+
+        $this->assertIsArray($style);
+        $this->assertSame('#1976D2', $style['backgroundColor']);
+        $this->assertSame('#ffffff', $style['color']);
+        $this->assertSame(
+            '{"backgroundColor":"#1976D2","color":"#ffffff"}',
+            json_encode($style)
+        );
+    }
+
     public function testSchemaDataWithoutPicker(): void
     {
         $field = ColorPaletteField::create(
